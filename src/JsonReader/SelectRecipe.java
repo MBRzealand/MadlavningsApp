@@ -1,10 +1,8 @@
 package JsonReader;
 
-import sample.Recipes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.Scanner;
+import sample.Recipes;
 
 
 public class SelectRecipe {
@@ -20,11 +18,9 @@ public class SelectRecipe {
     }
 
 
-
     public static void selectRecipe(String Name) throws JsonProcessingException {
 
     ObjectMapper objectMapper = new ObjectMapper();
-    Scanner input = new Scanner(System.in);
 
     String jsonStr = JsonItemString.getJsonData();
 
@@ -36,8 +32,6 @@ public class SelectRecipe {
 
 
         while (searchingForItem) {
-
-//            System.out.println("Input Item Name:");
 
             String searchedRecipe = Name;
 

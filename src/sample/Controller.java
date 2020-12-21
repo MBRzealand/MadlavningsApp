@@ -1,5 +1,9 @@
 package sample;
 
+import JsonReader.JsonItemString;
+import JsonReader.RecipeListJSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,10 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Controller {
@@ -24,6 +25,10 @@ public class Controller {
     StringBuilder sb = new StringBuilder();
     StringBuilder loadSB = new StringBuilder();
 
+
+
+    @FXML
+    private javafx.scene.control.ListView<String> ListView;
 
     //--------------------------------------------{Tabs}------------------------------------------
 
@@ -89,6 +94,32 @@ public class Controller {
         while (input.hasNext()) {
             sb.append(input.next());
         }
+    }
+
+    public void initialize() throws JsonProcessingException {
+        loadRecipes();
+    }
+
+    void loadRecipes() throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String jsonStr = JsonItemString.getJsonData();
+
+        RecipeListJSON recipeListJSON = objectMapper.readValue(jsonStr, RecipeListJSON.class);
+
+        ArrayList<String> listViewData = new ArrayList<>();
+
+        for (int i = 0; i < recipeListJSON.getRecipeList().size(); i++) {
+
+            listViewData.add(recipeListJSON.getRecipeList().get(i).getRecipeName());
+
+        }
+
+        Collections.sort(listViewData);
+
+        ListView.getItems().addAll(listViewData);
+
     }
 
     //---------------------------------------{Frontend Functions}-------------------------------------------------------
