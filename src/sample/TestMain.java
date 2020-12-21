@@ -6,7 +6,7 @@ public class TestMain extends JsonReader.SelectRecipe {
 
     public static void main(String[] args) throws JsonProcessingException {
 
-        selectRecipe("Toast");
+        selectRecipe("Pasta med torsk");
         Recipes.returnStats(getCurrentCraft());
 
     }

@@ -51,12 +51,14 @@ public class SelectRecipe {
 
                 searchingForItem = false;
 
-                currentRecipe = new Recipes(fetchedItem.getRecipeName(),fetchedItem.getIngredients(),
+                currentRecipe = new Recipes(fetchedItem.getRecipeName(),fetchedItem.getIngredients(),fetchedItem.getIngredientsExact(),
                         fetchedItem.getInstructions(), fetchedItem.getTimeNeeded());
 
 
             } else {
                 System.out.println("Item Doesn't exist\n");
+
+                searchingForItem = false;
             }
 
         }
