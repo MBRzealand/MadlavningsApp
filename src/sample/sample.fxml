@@ -21,7 +21,7 @@
    <children>
       <TabPane fx:id="tabPane" prefHeight="458.0" prefWidth="555.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="SignInTab" text="Sign In">
+          <Tab fx:id="SignInTab" style="visibility: hidden;" text="Sign In">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -34,7 +34,7 @@
                               <Font name="Lucida Fax Regular" size="28.0" />
                            </font>
                         </Text>
-                        <Text fx:id="LogInWarning" fill="#ff4242" layoutX="203.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="149.0">
+                        <Text fx:id="LogInWarning" fill="#ff4242" layoutX="178.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
                            <font>
                               <Font name="Eras Light ITC" size="18.0" />
                            </font>
@@ -42,7 +42,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="SignUpTab" text="Sign Up">
+          <Tab fx:id="SignUpTab" style="visibility: hidden;" text="Sign Up">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -55,15 +55,20 @@
                         <TextField fx:id="SignUpPassword" layoutX="203.0" layoutY="230.0" promptText="Enter Password" />
                         <TextField fx:id="VerifyPassword" layoutX="203.0" layoutY="270.0" promptText="Verify Password" />
                         <Button fx:id="SignUpConfirmButton" layoutX="203.0" layoutY="310.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="149.0" text="Sign Up" />
+                        <Text fx:id="SignUpWarning" fill="#ff4242" layoutX="178.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
+                           <font>
+                              <Font name="Eras Light ITC" size="18.0" />
+                           </font>
+                        </Text>
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="HomeTab" text="Home">
+            <Tab fx:id="HomeTab" style="visibility: hidden;" text="Home">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab style="visibility: hidden;" text="Untitled Tab">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>

@@ -61,6 +61,9 @@ public class Controller {
     @FXML
     private Text LogInWarning;
 
+    @FXML
+    private Text SignUpWarning;
+
     //-------------------------------------------{Button}---------------------------------------------------------------
 
     @FXML
@@ -75,6 +78,7 @@ public class Controller {
     //------------------------------------------{variables}-------------------------------------------------------------
 
     boolean noFoundLogin = true;
+    ArrayList<String[]> listOfDetailsSplit = new ArrayList<>();
 
     //---------------------------------------{Backend Functions}--------------------------------------------------------
 
@@ -92,7 +96,7 @@ public class Controller {
     @FXML
     void GoToSignUp(ActionEvent event) {
         tabPane.getSelectionModel().select(SignUpTab);
-
+        LogInWarning.setText(null);
     }
 
 
@@ -105,41 +109,43 @@ public class Controller {
 
         input.close();
 
-
-        List<String[]> finalListOfUserDetail = new ArrayList<>();
-
         String allLogins = sb.toString();
 
         List<String> listOfUserDetail = new ArrayList<>(Arrays.asList(allLogins.split("----------")));
 
         listOfUserDetail.remove(listOfUserDetail.get(0));
 
-        for (String s : listOfUserDetail) {
-            String[] tmplist = s.split(":");
-            finalListOfUserDetail.add(tmplist);
-        }
-
         String enteredEmail = SignInEmail.getText().toLowerCase();
         String enteredPassword = SignInPassword.getText();
+        String actualEmail = null;
+        String actualPassword = null;
 
 
-        for (String[] strings : finalListOfUserDetail) {
+        for (int i = 0; i < listOfUserDetail.size(); i++) {
+            listOfDetailsSplit.add(listOfUserDetail.get(i).split(":"));
+            actualEmail = listOfDetailsSplit.get(i)[0];
 
-            if ((strings[1].contains(enteredPassword) && !enteredPassword.equals("")) &&
-                    (strings[0].contains(enteredEmail.toLowerCase()) && !enteredEmail.equals(""))) {
-                tabPane.getSelectionModel().select(HomeTab);
-                noFoundLogin = false;
-                LogInWarning.setText(null);
+            if (enteredEmail.equals(actualEmail)) {
+                actualEmail = listOfDetailsSplit.get(i)[0];
+                actualPassword = listOfDetailsSplit.get(i)[1];
                 break;
-
             }
 
+            actualEmail = null;
+        }
+
+        if ((enteredEmail.equals(actualEmail)) && enteredPassword.equals(actualPassword)){
+            tabPane.getSelectionModel().select(HomeTab);
+            noFoundLogin = false;
+            LogInWarning.setText(null);
         }
 
 
         if(noFoundLogin){
             LogInWarning.setText("Wrong email or password");
+            SignInPassword.clear();
         }
+
     }
 
 
@@ -150,11 +156,17 @@ public class Controller {
 
         String Email = SignUpEmail.getText().toLowerCase();
         String Password = SignUpPassword.getText();
-        String VerifyPassword = VerifyPassword.getText();
+        String tmpPass = VerifyPassword.getText();
 
-        if( (Email.equals("") || Password.equals("")) || VerifyPassword.equals("")){
+        if( ((Email.equals("") || Password.equals("")) || tmpPass.equals(""))) {
 
-            System.out.println("FUCK");
+            SignUpWarning.setText("Invalid E-mail Or Password");
+
+        }else if(!Password.equals(tmpPass)){
+
+            SignUpWarning.setText("Passwords Do Not Match");
+            SignUpPassword.clear();
+            VerifyPassword.clear();
 
         } else {
 
@@ -165,6 +177,7 @@ public class Controller {
             output.write("----------");
             output.close();
 
+            SignUpWarning.setText(null);
             tabPane.getSelectionModel().select(SignInTab);
 
         }
@@ -173,6 +186,5 @@ public class Controller {
         input.close();
 
     }
-
 
 }
