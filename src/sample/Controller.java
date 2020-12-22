@@ -127,7 +127,9 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
 
     //------------------------------------------{variables}-------------------------------------------------------------
 
+    // eksempel på et par variable
     boolean noFoundLogin = true;
+
     ArrayList<String[]> listOfDetailsSplit = new ArrayList<>();
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -135,6 +137,7 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
     String jsonStr = JsonItemString.getJsonData();
 
     RecipeListJSON recipeListJSON = objectMapper.readValue(jsonStr, RecipeListJSON.class);
+
 
     //---------------------------------------{Backend Functions}--------------------------------------------------------
 
@@ -154,6 +157,9 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
 
         Terms.setText(getTerms());
 
+        SignInLogo.setImage(new Image("/images/logo.png"));
+        LoginLogo.setImage(new Image("/images/logo.png"));
+
         tabPane.addEventFilter(      // eksempel på brug af Enum til at disable left og right piletasterne
                 KeyEvent.ANY,        // da de navigerer mellem tabs og dette ikke skal være muligt for brugeren
                 event -> {
@@ -162,8 +168,6 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
                     }
                 });
 
-        SignInLogo.setImage(new Image("/images/logo.png"));
-        LoginLogo.setImage(new Image("/images/logo.png"));
         loadRecipes();
     }
 
@@ -212,13 +216,12 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
 
 
     @FXML
-    void logIn(ActionEvent event) throws FileNotFoundException {  // eksempel på persistens (hente gemt data)
+    void logIn(ActionEvent event) throws IOException {  // eksempel på persistens (hente gemt data)
         sb.setLength(0);
+
         input = new Scanner(new FileReader("credentials.txt"));
 
         checkCreatedUsers();
-
-        input.close();
 
         String allLogins = sb.toString();
 
@@ -257,6 +260,12 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
             SignInPassword.clear();
         }
 
+        System.out.println(enteredEmail);
+        System.out.println(enteredPassword);
+        System.out.println(actualEmail);
+        System.out.println(actualPassword);
+
+        input.close();
     }
 
 
@@ -264,6 +273,7 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
     void signUp(ActionEvent event) throws IOException {   // eksempel på persistens (gemme data)
 
         input = new Scanner(new FileReader("credentials.txt"));
+        output = new BufferedWriter(new FileWriter("credentials.txt",true));
 
         String Email = SignUpEmail.getText().toLowerCase();
         String Password = SignUpPassword.getText();
@@ -294,7 +304,6 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
         }
 
         checkCreatedUsers();
-        input.close();
 
     }
 
@@ -338,7 +347,7 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
         ArrayList<RecipeJSON> filteredRecipes = new ArrayList<>();
         ArrayList<String> convertedFilteredRecipes = new ArrayList<>();
 
-        for (int i = 0; i < recipeListJSON.getRecipeList().size(); i++) {
+        for (int i = 0; i < recipeListJSON.getRecipeList().size(); i++) {  // eksempel på loop 1: for i loop
 
             if (recipeListJSON.getRecipeList().get(i).getIngredients().contains(ingredient)) {
 
@@ -347,7 +356,7 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
             }
         }
 
-        for (RecipeJSON filteredRecipe : filteredRecipes) {
+        for (RecipeJSON filteredRecipe : filteredRecipes) {  // eksempel på loop 2: enhanced for loop
 
             convertedFilteredRecipes.add(filteredRecipe.getRecipeName());
 
