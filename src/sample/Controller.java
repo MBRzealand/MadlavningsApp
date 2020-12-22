@@ -377,8 +377,4 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
 
 
     }
-
-
-
-
 }

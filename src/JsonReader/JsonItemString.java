@@ -85,7 +85,6 @@ public class JsonItemString {
             "   \"image\": \"glasur.jpg\",\n" +
             "   \"description\": \"Glasur... gud vide hvorfor du bare vil lave glasur... placebo\\nfor at spise lim?\"\n" +
             "  },\n" +
-
             "  {\n" +
             "   \"recipeName\": \"Dry Martini\",\n" +
             "   \"ingredients\": [\"gin\", \"Vermouth\", \"Isterninger\", \"Grøn Oliven\"],\n" +
@@ -95,7 +94,6 @@ public class JsonItemString {
             "   \"image\": \"martini.jpg\",\n" +
             "   \"description\": \"Vi har alle set James Bond, behøver ingen forklaring\"\n" +
             "  },\n" +
-
             "  {\n" +
             "   \"recipeName\": \"Pulled duck sandwich\",\n" +
             "   \"ingredients\": [\"agurk\", \"hvidvinseddike\", \"vand\", \"rørsukker\", \"flagesalt\", \"peber\", \"confit de canard\", \"brioche burgerbolle\", \"syltet rødløg\", \"sennep\", \"rucola\", \"flæskesvær\"],\n" +
