@@ -138,6 +138,7 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
 
     RecipeListJSON recipeListJSON = objectMapper.readValue(jsonStr, RecipeListJSON.class);
 
+    String allLogins;
 
     //---------------------------------------{Backend Functions}--------------------------------------------------------
 
@@ -216,24 +217,28 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
 
 
     @FXML
-    void logIn(ActionEvent event) throws IOException {  // eksempel på persistens (hente gemt data)
-        sb.setLength(0);
-
-        input = new Scanner(new FileReader("credentials.txt"));
-
-        checkCreatedUsers();
-
-        String allLogins = sb.toString();
-
-        List<String> listOfUserDetail = new ArrayList<>(Arrays.asList(allLogins.split("----------")));
-
-        listOfUserDetail.remove(listOfUserDetail.get(0));
+    void logIn(ActionEvent event) {  // eksempel på persistens (hente gemt data)
 
         String enteredEmail = SignInEmail.getText().toLowerCase();
         String enteredPassword = SignInPassword.getText();
         String actualEmail = null;
         String actualPassword = null;
 
+        try {
+            input = new Scanner(new FileReader("credentials.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        checkCreatedUsers();
+
+        allLogins = sb.toString();
+
+        input.close();
+
+        List<String> listOfUserDetail = new ArrayList<>(Arrays.asList(allLogins.split("----------")));
+
+        listOfUserDetail.remove(listOfUserDetail.get(0));
 
         for (int i = 0; i < listOfUserDetail.size(); i++) {
             listOfDetailsSplit.add(listOfUserDetail.get(i).split(":"));
@@ -260,19 +265,14 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
             SignInPassword.clear();
         }
 
-        System.out.println(enteredEmail);
-        System.out.println(enteredPassword);
-        System.out.println(actualEmail);
-        System.out.println(actualPassword);
 
-        input.close();
     }
 
 
     @FXML
     void signUp(ActionEvent event) throws IOException {   // eksempel på persistens (gemme data)
+        sb.setLength(0);
 
-        input = new Scanner(new FileReader("credentials.txt"));
         output = new BufferedWriter(new FileWriter("credentials.txt",true));
 
         String Email = SignUpEmail.getText().toLowerCase();
@@ -298,12 +298,16 @@ public class Controller extends UserTerms {  // eksempel på nedarvning
             output.write("----------");
             output.close();
 
+            input = new Scanner(new FileReader("credentials.txt"));
+
+            checkCreatedUsers();
+            allLogins = sb.toString();
+            input.close();
+
             SignUpWarning.setText(null);
             tabPane.getSelectionModel().select(SignInTab);
 
         }
-
-        checkCreatedUsers();
 
     }
 
