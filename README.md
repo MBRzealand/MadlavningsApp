@@ -9,8 +9,8 @@ You can search by specific ingredients if you want to cook something specific.
 ![alt text](https://scontent.fcph2-1.fna.fbcdn.net/v/t1.15752-9/132262478_417027066002141_6892912245241110279_n.png?_nc_cat=102&ccb=2&_nc_sid=ae9488&_nc_ohc=Aa9EwseqHPwAX8FrkoF&_nc_oc=AQmUEoch9vOX-qoKyLD2wzEJhW438WdTbCSnwqTxjz-h015tCFBfW20S6oMh_NAVH8U&_nc_ht=scontent.fcph2-1.fna&oh=3e2de89ab30e4584fabeae239de6c2e5&oe=600673E7)
 
 ### TO-DO List
-- Click on recipe to see description
-- Select recipe to see instructions
-- Search by ingredients (use .contains() for finding an array including ingredients)
+- ~~Click on recipe to see description~~
+- ~~Select recipe to see instructions~~
+- ~~Search by ingredients (use .contains() for finding an array including ingredients)~~
 - Add Recipes
 - Add Recipes to favorites
