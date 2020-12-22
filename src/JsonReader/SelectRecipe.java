@@ -46,7 +46,7 @@ public class SelectRecipe {
                 searchingForItem = false;
 
                 currentRecipe = new Recipes(fetchedItem.getRecipeName(),fetchedItem.getIngredients(),fetchedItem.getIngredientsExact(),
-                        fetchedItem.getInstructions(), fetchedItem.getTimeNeeded());
+                        fetchedItem.getInstructions(), fetchedItem.getTimeNeeded(), fetchedItem.getImage(), fetchedItem.getDescription() );
 
 
             } else {

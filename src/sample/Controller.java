@@ -2,18 +2,22 @@ package sample;
 
 import JsonReader.JsonItemString;
 import JsonReader.RecipeListJSON;
+import JsonReader.SelectRecipe;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Controller {
@@ -26,9 +30,33 @@ public class Controller {
     StringBuilder loadSB = new StringBuilder();
 
 
+    @FXML
+    private ImageView RecipePreview;
+
+    @FXML
+    private ImageView LoginLogo;
+
+    @FXML
+    private ImageView SignInLogo;
 
     @FXML
     private javafx.scene.control.ListView<String> ListView;
+
+
+
+
+
+    @FXML
+    private ImageView recipeImage;
+
+    @FXML
+    private Label recipeExactIngredients;
+
+    @FXML
+    private Label RecipeInstructions;
+
+    @FXML
+    private Text RecipeName;
 
     //--------------------------------------------{Tabs}------------------------------------------
 
@@ -44,9 +72,13 @@ public class Controller {
     @FXML
     private Tab HomeTab;
 
+    @FXML
+    private Tab RecipeTab;
 
     //--------------------------------------------{Text}----------------------------------------------------------------
 
+    @FXML
+    private Label previewDescription;
 
     @FXML
     private TextField SignInEmail;
@@ -80,12 +112,22 @@ public class Controller {
     @FXML
     private Button SignUpConfirmButton;
 
+    @FXML
+    private Button selectRecipeButton;
+
     //------------------------------------------{variables}-------------------------------------------------------------
 
     boolean noFoundLogin = true;
     ArrayList<String[]> listOfDetailsSplit = new ArrayList<>();
 
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    String jsonStr = JsonItemString.getJsonData();
+
+    RecipeListJSON recipeListJSON = objectMapper.readValue(jsonStr, RecipeListJSON.class);
+
     //---------------------------------------{Backend Functions}--------------------------------------------------------
+
 
     public Controller() throws IOException {
     }
@@ -97,26 +139,22 @@ public class Controller {
     }
 
     public void initialize() throws JsonProcessingException {
+        SignInLogo.setImage(new Image("/images/logo.png"));
+        LoginLogo.setImage(new Image("/images/logo.png"));
         loadRecipes();
     }
 
+
+
     void loadRecipes() throws JsonProcessingException {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        String jsonStr = JsonItemString.getJsonData();
-
-        RecipeListJSON recipeListJSON = objectMapper.readValue(jsonStr, RecipeListJSON.class);
-
-        ArrayList<String> listViewData = new ArrayList<>();
+       ArrayList<String> listViewData = new ArrayList<>();
 
         for (int i = 0; i < recipeListJSON.getRecipeList().size(); i++) {
 
             listViewData.add(recipeListJSON.getRecipeList().get(i).getRecipeName());
 
         }
-
-        Collections.sort(listViewData);
 
         ListView.getItems().addAll(listViewData);
 
@@ -216,6 +254,36 @@ public class Controller {
         checkCreatedUsers();
         input.close();
 
+    }
+
+
+    @FXML
+    void displayImage(MouseEvent event) throws JsonProcessingException {
+
+        String currentImageName = recipeListJSON.getRecipeList().get(ListView.getSelectionModel().getSelectedIndex()).getImage();
+        String currentDescription = recipeListJSON.getRecipeList().get(ListView.getSelectionModel().getSelectedIndex()).getDescription();
+
+        RecipePreview.setImage(new Image("/images/"+currentImageName));
+        previewDescription.setText(currentDescription);
+    }
+
+
+    @FXML
+    void selectCurrentRecipe(ActionEvent event) throws JsonProcessingException {
+
+        String selectedRecipe = recipeListJSON.getRecipeList().get(ListView.getSelectionModel().getSelectedIndex()).getRecipeName();
+
+        JsonReader.SelectRecipe.selectRecipe(selectedRecipe);
+
+        recipeImage.setImage(new Image("/images/"+ SelectRecipe.getCurrentCraft().image));
+
+        RecipeName.setText(SelectRecipe.getCurrentCraft().recipeName);
+
+        recipeExactIngredients.setText(SelectRecipe.getCurrentCraft().ingredientsExact);
+
+        RecipeInstructions.setText(SelectRecipe.getCurrentCraft().instructions);
+
+        tabPane.getSelectionModel().select(RecipeTab);
     }
 
 }

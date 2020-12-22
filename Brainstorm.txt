@@ -1,5 +1,7 @@
 
 
-Click on recipe to see details about it
+Click on recipe to see description
+Select recipe to see instructions
 Search by ingredients (use .contains() for finding an array including ingredients)
 Add Recipes
+Add Recipes to favorites

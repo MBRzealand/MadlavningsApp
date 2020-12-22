@@ -12,6 +12,9 @@ public class RecipeJSON {
     private String instructions;
     private Integer timeNeeded;
 
+    private String image;
+    private String description;
+
     public String getRecipeName() {
         return recipeName;
     }
@@ -50,5 +53,21 @@ public class RecipeJSON {
 
     public void setTimeNeeded(Integer timeNeeded) {
         this.timeNeeded = timeNeeded;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
