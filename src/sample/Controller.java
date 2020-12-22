@@ -1,6 +1,7 @@
 package sample;
 
 import JsonReader.JsonItemString;
+import JsonReader.RecipeJSON;
 import JsonReader.RecipeListJSON;
 import JsonReader.SelectRecipe;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,15 +20,11 @@ import java.io.*;
 import java.util.*;
 
 
-public class Controller {
+public class Controller extends UserTerms {  // eksempel på nedarvning
 
     BufferedWriter output = new BufferedWriter(new FileWriter("credentials.txt",true));
-    BufferedWriter saveOutput;
     Scanner input = new Scanner(new FileReader("credentials.txt"));
-    Scanner loadInput;
     StringBuilder sb = new StringBuilder();
-    StringBuilder loadSB = new StringBuilder();
-
 
     @FXML
     private ImageView RecipePreview;
@@ -40,8 +37,6 @@ public class Controller {
 
     @FXML
     private javafx.scene.control.ListView<String> ListView;
-
-
 
 
 
@@ -66,6 +61,9 @@ public class Controller {
     private Tab SignInTab;
 
     @FXML
+    private Tab TermsTab;
+
+    @FXML
     private Button BackButton;
 
     @FXML
@@ -78,6 +76,13 @@ public class Controller {
     private Tab RecipeTab;
 
     //--------------------------------------------{Text}----------------------------------------------------------------
+
+
+    @FXML
+    private Label Terms;
+
+    @FXML
+    private TextField FilterInput;
 
     @FXML
     private Label previewDescription;
@@ -145,6 +150,10 @@ public class Controller {
 
     public void initialize() {
 
+        tabPane.getSelectionModel().select(TermsTab);
+
+        Terms.setText(getTerms());
+
         tabPane.addEventFilter(      // eksempel på brug af Enum til at disable left og right piletasterne
                 KeyEvent.ANY,        // da de navigerer mellem tabs og dette ikke skal være muligt for brugeren
                 event -> {
@@ -171,6 +180,7 @@ public class Controller {
         }
 
         ListView.getItems().addAll(listViewData);
+        ListView.refresh();
 
     }
 
@@ -180,11 +190,29 @@ public class Controller {
     void GoToSignUp(ActionEvent event) {
         tabPane.getSelectionModel().select(SignUpTab);
         LogInWarning.setText(null);
+        SignUpWarning.setText(null);
+        SignUpEmail.clear();
+        SignUpPassword.clear();
+        VerifyPassword.clear();
+    }
+
+    @FXML
+    void GoToHomeTab(ActionEvent event) {
+        tabPane.getSelectionModel().select(HomeTab);
+    }
+
+    @FXML
+    void BackTologIn(ActionEvent event) {
+        tabPane.getSelectionModel().select(SignInTab);
+        LogInWarning.setText(null);
+        SignUpWarning.setText(null);
+        SignInEmail.clear();
+        SignInPassword.clear();
     }
 
 
     @FXML
-    void logIn(ActionEvent event) throws FileNotFoundException {
+    void logIn(ActionEvent event) throws FileNotFoundException {  // eksempel på persistens (hente gemt data)
         sb.setLength(0);
         input = new Scanner(new FileReader("credentials.txt"));
 
@@ -233,7 +261,7 @@ public class Controller {
 
 
     @FXML
-    void signUp(ActionEvent event) throws IOException {
+    void signUp(ActionEvent event) throws IOException {   // eksempel på persistens (gemme data)
 
         input = new Scanner(new FileReader("credentials.txt"));
 
@@ -301,14 +329,43 @@ public class Controller {
     }
 
 
-    @FXML
-    void GoToHomeTab(ActionEvent event) {
-        tabPane.getSelectionModel().select(HomeTab);
-    }
+
 
     @FXML
-    void BackTologIn(ActionEvent event) {
-        tabPane.getSelectionModel().select(SignInTab);
+    void SearchForIngredients(ActionEvent event) {
+
+        String ingredient = FilterInput.getText();
+        ArrayList<RecipeJSON> filteredRecipes = new ArrayList<>();
+        ArrayList<String> convertedFilteredRecipes = new ArrayList<>();
+
+        for (int i = 0; i < recipeListJSON.getRecipeList().size(); i++) {
+
+            if (recipeListJSON.getRecipeList().get(i).getIngredients().contains(ingredient)) {
+
+                filteredRecipes.add(recipeListJSON.getRecipeList().get(i));
+
+            }
+        }
+
+        for (RecipeJSON filteredRecipe : filteredRecipes) {
+
+            convertedFilteredRecipes.add(filteredRecipe.getRecipeName());
+
+        }
+
+            ListView.getItems().clear();
+            ListView.getItems().addAll(convertedFilteredRecipes);
+            ListView.refresh();
+
+
+            if(ingredient.equals("")){
+                loadRecipes();
+            }
+
+
     }
+
+
+
 
 }

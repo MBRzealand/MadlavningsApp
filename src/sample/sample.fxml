@@ -38,7 +38,7 @@
                               <Font name="Lucida Fax Regular" size="28.0" />
                            </font>
                         </Text>
-                        <Text fx:id="LogInWarning" fill="#ff4242" layoutX="178.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
+                        <Text fx:id="LogInWarning" fill="#ff4242" layoutX="215.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
                            <font>
                               <Font name="Eras Light ITC" size="18.0" />
                            </font>
@@ -64,12 +64,12 @@
                         <TextField fx:id="SignUpPassword" layoutX="240.0" layoutY="220.0" promptText="Indtast Kodeord" />
                         <TextField fx:id="VerifyPassword" layoutX="240.0" layoutY="260.0" promptText="Bekræft Kodeord" />
                         <Button fx:id="SignUpConfirmButton" layoutX="240.0" layoutY="300.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="149.0" text="Sign Up" />
-                        <Text fx:id="SignUpWarning" fill="#ff4242" layoutX="178.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
+                        <Text fx:id="SignUpWarning" fill="#ff4242" layoutX="215.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
                            <font>
                               <Font name="Eras Light ITC" size="18.0" />
                            </font>
                         </Text>
-                        <Button fx:id="BackButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackTologIn" text="Back" />
+                        <Button fx:id="BackButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackTologIn" text="Tilbage" />
                         <ImageView fx:id="SignInLogo" fitHeight="121.0" fitWidth="125.0" layoutX="250.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../resources/images/logo.png" />
@@ -83,10 +83,11 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <ListView fx:id="ListView" layoutX="14.0" layoutY="14.0" onMouseClicked="#displayImage" prefHeight="523.0" prefWidth="200.0" />
-                        <ImageView fx:id="RecipePreview" fitHeight="276.0" fitWidth="362.0" layoutX="226.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="RecipePreview" fitHeight="276.0" fitWidth="362.0" layoutX="222.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="previewDescription" alignment="TOP_LEFT" layoutX="227.0" layoutY="303.0" prefHeight="215.0" prefWidth="361.0" />
                         <Button fx:id="selectRecipeButton" layoutX="15.0" layoutY="537.0" mnemonicParsing="false" onAction="#selectCurrentRecipe" prefHeight="25.0" prefWidth="199.0" text="Vælg Opskrift" />
-                        <TextField layoutX="300.0" layoutY="537.0" prefHeight="25.0" prefWidth="206.0" promptText="Filtrer Efter Ingredienser" />
+                        <TextField fx:id="FilterInput" layoutX="300.0" layoutY="537.0" onAction="#SearchForIngredients" prefHeight="25.0" prefWidth="206.0" promptText="Filtrer Efter Ingredienser" />
+                        <Button layoutX="531.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackTologIn" text="Log Ud" />
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -108,6 +109,21 @@
                         </Text>
                         <Button fx:id="AllRecipiesButton" layoutX="494.0" layoutY="554.0" mnemonicParsing="false" onAction="#GoToHomeTab" text="Alle Opskrifter" />
                      </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="TermsTab" style="visibility: hidden;" text="User Terms">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="Terms" alignment="TOP_LEFT" layoutX="13.0" layoutY="79.0" prefHeight="465.0" prefWidth="574.0" />
+                        <Text layoutX="188.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vilkår for Anvendelse">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="252.0" layoutY="544.0" mnemonicParsing="false" onAction="#BackTologIn" text="Accepter Vilkår" />
+                     </children>
+                  </AnchorPane>
               </content>
             </Tab>
         </tabs>

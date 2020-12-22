@@ -13,6 +13,7 @@ public class Recipes {
     String description;
 
 
+    // eksempel på constructor
     public Recipes(String newRecipeName, ArrayList<String> newIngredients, String newExactIngredients, String newInstructions, int newTime, String img, String description){
 
         this.recipeName = newRecipeName;
@@ -25,6 +26,7 @@ public class Recipes {
 
     }
 
+    // funktion til bugfixing, ikke relevant for selve programmet
     public static void returnStats(Recipes x){
         if (x != null) {
             System.out.println("Recipe Name is: " + x.recipeName);
