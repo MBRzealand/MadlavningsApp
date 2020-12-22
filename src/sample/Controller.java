@@ -10,14 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Controller {
@@ -67,6 +66,9 @@ public class Controller {
     private Tab SignInTab;
 
     @FXML
+    private Button BackButton;
+
+    @FXML
     private Tab SignUpTab;
 
     @FXML
@@ -104,6 +106,9 @@ public class Controller {
     //-------------------------------------------{Button}---------------------------------------------------------------
 
     @FXML
+    private Button AllRecipiesButton;
+
+    @FXML
     private Button SignUpButton;
 
     @FXML
@@ -138,7 +143,16 @@ public class Controller {
         }
     }
 
-    public void initialize() throws JsonProcessingException {
+    public void initialize() {
+
+        tabPane.addEventFilter(      // eksempel på brug af Enum til at disable left og right piletasterne
+                KeyEvent.ANY,        // da de navigerer mellem tabs og dette ikke skal være muligt for brugeren
+                event -> {
+                    if (EnumSet.of(KeyCode.LEFT, KeyCode.RIGHT).contains(event.getCode())) {
+                        event.consume();
+                    }
+                });
+
         SignInLogo.setImage(new Image("/images/logo.png"));
         LoginLogo.setImage(new Image("/images/logo.png"));
         loadRecipes();
@@ -146,7 +160,7 @@ public class Controller {
 
 
 
-    void loadRecipes() throws JsonProcessingException {
+    void loadRecipes() {
 
        ArrayList<String> listViewData = new ArrayList<>();
 
@@ -258,7 +272,7 @@ public class Controller {
 
 
     @FXML
-    void displayImage(MouseEvent event) throws JsonProcessingException {
+    void displayImage(MouseEvent event) {
 
         String currentImageName = recipeListJSON.getRecipeList().get(ListView.getSelectionModel().getSelectedIndex()).getImage();
         String currentDescription = recipeListJSON.getRecipeList().get(ListView.getSelectionModel().getSelectedIndex()).getDescription();
@@ -269,7 +283,7 @@ public class Controller {
 
 
     @FXML
-    void selectCurrentRecipe(ActionEvent event) throws JsonProcessingException {
+    void selectCurrentRecipe(ActionEvent event) throws JsonProcessingException {   // eksempel på exceptions
 
         String selectedRecipe = recipeListJSON.getRecipeList().get(ListView.getSelectionModel().getSelectedIndex()).getRecipeName();
 
@@ -284,6 +298,17 @@ public class Controller {
         RecipeInstructions.setText(SelectRecipe.getCurrentCraft().instructions);
 
         tabPane.getSelectionModel().select(RecipeTab);
+    }
+
+
+    @FXML
+    void GoToHomeTab(ActionEvent event) {
+        tabPane.getSelectionModel().select(HomeTab);
+    }
+
+    @FXML
+    void BackTologIn(ActionEvent event) {
+        tabPane.getSelectionModel().select(SignInTab);
     }
 
 }
